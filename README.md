@@ -43,7 +43,9 @@ The sensor code has been left out of this public repo for now.
 ## Backend code
 
 Backend code can be found in `/canister`.
-There is also some minimal traning data 
+There is also some minimal traning data found in `training/training.js`.
+
+At the moment there is no restriction as to who can upload training data etc, but this canister isexperimental and meant as a proof of concept, and will be tightened up for the next milestone which brings it all together in the data marketplace.
 
 ## Field Pilot Learnings
 
@@ -54,3 +56,4 @@ There is also some minimal traning data
 ## Future Exploration
 
 - Investigating GPRS modules to upload data via GSM.
+- Using neuromorphic chips for full edge birdsond detection.
