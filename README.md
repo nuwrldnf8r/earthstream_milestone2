@@ -42,7 +42,8 @@ The sensor code has been left out of this public repo for now.
 
 ## Backend code
 
-Backend code can be found in `
+Backend code can be found in `/canister`.
+There is also some minimal traning data 
 
 ## Field Pilot Learnings
 
