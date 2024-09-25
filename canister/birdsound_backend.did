@@ -1,0 +1,74 @@
+type Range = record {
+    low: float32;
+    high: float32;
+};
+
+type Species = record {
+  species: text;
+  samples: nat64;
+  freq_range: Range;
+  spec_ent_avg: float32;
+  score: float32;
+};
+
+type PacketScore = record {
+    id: nat64;
+    score: float32;
+};
+
+type Weight = record {
+    freq_compare_c: float32;
+    freq_spec_compare_c: float32;
+    freq_range_compare_c: float32;
+    matching_freq: float32;
+    matching_freq_harmonic: float32;
+    matching_freq_spec_ent: float32;
+    freq_range: float32;
+    loudest_freq: float32;
+    loudest_harmonic: float32;
+    loudest_spec_ent: float32;
+    matching_freq_score: float32;
+    freq_range_score: float32;
+    loudest_score: float32;
+};
+
+type SpeciesWithId = record {
+    species: text;
+    score: float32;
+    id: nat64;
+};
+
+type Slice = record{
+    elapsed_time: nat16;
+    peak_freq: float32;
+    peak_vol: float32;
+    spec_ent: float32;
+    harmonics: vec nat8;
+};
+
+type Packet = record{
+    id: nat64;
+    ts: nat64;
+    owner: vec nat8;
+    slices: vec Slice;
+};
+
+type bird_data = text;
+type label = text;
+
+service : {
+    receive_bird_data: (bird_data) -> () oneway;
+    receive_training_data: (bird_data, label) -> () oneway;
+    label_bird_data : (nat64, label) -> ();
+    compare : (nat64, nat64) -> (float32) query;
+    find_species: (nat64) -> (Species) query;
+    get_all_data: () -> (vec nat64) query;
+    get_data_past_hour: () -> (vec SpeciesWithId) query;
+    get_data_past_5min: () -> (vec SpeciesWithId) query;
+    get_similar: (nat64) -> (vec PacketScore) query;
+    get_id: (text) -> (nat64) query;
+    get_owner: (nat64) -> (text) query;
+    get_weights: () -> (Weight) query;
+    set_weights: (float32, float32, float32, float32, float32, float32, float32, float32, float32, float32, float32, float32, float32) -> () oneway;
+    get_packets: (nat64, nat64) -> (vec Packet) query;
+}
